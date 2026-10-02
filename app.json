@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Little Explorers",
+    "slug": "little-explorers",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "littleexplorers",
+    "userInterfaceStyle": "light",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
