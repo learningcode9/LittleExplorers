@@ -1,4 +1,4 @@
-import Svg, { Circle, Path, Rect } from "react-native-svg";
+import Svg, { Circle, Ellipse, Path } from "react-native-svg";
 
 export function WorldMiniArt({ type }: { type: string }) {
   if (type === "flight") {
