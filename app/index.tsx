@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { HomeAdventureScene } from "../components/HomeAdventureScene";
+import { WorldMiniArt } from "../components/WorldMiniArt";
 
 const worlds = [
   {
@@ -8,28 +9,28 @@ const worlds = [
     title: "Flight Adventure",
     subtitle: "Puzzles, stories & travel fun",
     color: "#BCEFFF",
-    icon: "✈",
+    icon: "flight",
   },
   {
     id: "animals",
     title: "Animal Village",
     subtitle: "Meet friendly animals",
     color: "#FFD1DF",
-    icon: "🐾",
+    icon: "animals",
   },
   {
     id: "underwater",
     title: "Underwater World",
     subtitle: "Explore, count & find treasures",
     color: "#BDF4E8",
-    icon: "🐢",
+    icon: "underwater",
   },
   {
     id: "creative",
     title: "Creative Island",
     subtitle: "Create, imagine and play",
     color: "#DCCBFF",
-    icon: "🎨",
+    icon: "creative",
   },
 ];
 
@@ -69,7 +70,7 @@ export default function HomeScreen() {
             ]}
           >
             <View style={styles.worldIcon}>
-              <Text style={styles.worldIconText}>{world.icon}</Text>
+              <WorldMiniArt type={world.icon} />
             </View>
             <View style={styles.worldCopy}>
               <Text style={styles.worldTitle}>{world.title}</Text>
