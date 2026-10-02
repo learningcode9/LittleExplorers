@@ -8,28 +8,28 @@ const worlds = [
     id: "flight",
     title: "Flight Adventure",
     subtitle: "Puzzles, stories & travel fun",
-    color: "#BCEFFF",
+    color: "#B8ECFF",
     icon: "flight",
   },
   {
     id: "animals",
     title: "Animal Village",
     subtitle: "Meet friendly animals",
-    color: "#FFD1DF",
+    color: "#FFD0DE",
     icon: "animals",
   },
   {
     id: "underwater",
     title: "Underwater World",
     subtitle: "Explore, count & find treasures",
-    color: "#BDF4E8",
+    color: "#B9F1E7",
     icon: "underwater",
   },
   {
     id: "creative",
     title: "Creative Island",
     subtitle: "Create, imagine and play",
-    color: "#DCCBFF",
+    color: "#D8C5FF",
     icon: "creative",
   },
 ];
@@ -39,7 +39,18 @@ export default function HomeScreen() {
     <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <View style={styles.brandRow}>
-          <Text style={styles.sun}>☀</Text>
+          <View style={styles.sunMark}>
+            <View style={styles.sunCore} />
+            {Array.from({ length: 8 }).map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.sunRay,
+                  { transform: [{ rotate: `${index * 45}deg` }] },
+                ]}
+              />
+            ))}
+          </View>
           <Text style={styles.brand}>Little Explorers</Text>
         </View>
         <Pressable accessibilityRole="button" accessibilityLabel="Parent settings" style={styles.settings}>
@@ -108,14 +119,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  sun: {
-    fontSize: 35,
-    marginRight: 8,
+  sunMark: {
+    width: 40,
+    height: 40,
+    marginRight: 9,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sunCore: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "#FFD34F",
+  },
+  sunRay: {
+    position: "absolute",
+    width: 3,
+    height: 11,
+    borderRadius: 2,
+    backgroundColor: "#172D50",
   },
   brand: {
     color: "#172D50",
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: 30,
+    lineHeight: 35,
     fontWeight: "900",
   },
   settings: {
@@ -132,20 +159,20 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   settingsText: {
-    fontSize: 25,
+    fontSize: 24,
   },
   heroCopy: {
     width: "100%",
     maxWidth: 760,
     alignSelf: "center",
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 16,
+    marginTop: 18,
+    marginBottom: 14,
   },
   tagline: {
     color: "#172D50",
     fontSize: 16,
-    fontWeight: "800",
+    fontWeight: "900",
     letterSpacing: 1.2,
   },
   question: {
@@ -163,13 +190,13 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     overflow: "hidden",
     backgroundColor: "#AEE6F7",
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: "#FFFFFF",
     shadowColor: "#172D50",
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 4,
+    shadowOpacity: 0.14,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 9 },
+    elevation: 5,
   },
   worldList: {
     width: "100%",
@@ -179,23 +206,25 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   worldCard: {
-    minHeight: 112,
-    borderRadius: 26,
+    minHeight: 116,
+    borderRadius: 28,
     paddingHorizontal: 16,
-    paddingVertical: 13,
+    paddingVertical: 14,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "#172D50",
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 2,
   },
   worldIcon: {
-    width: 76,
-    height: 76,
-    borderRadius: 24,
-    backgroundColor: "rgba(255,255,255,0.55)",
+    width: 78,
+    height: 78,
+    borderRadius: 25,
+    backgroundColor: "rgba(255,255,255,0.62)",
     alignItems: "center",
     justifyContent: "center",
-  },
-  worldIconText: {
-    fontSize: 42,
   },
   worldCopy: {
     flex: 1,
@@ -214,19 +243,19 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   goButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
     justifyContent: "center",
   },
   goText: {
     color: "#172D50",
-    fontSize: 34,
-    lineHeight: 35,
-    fontWeight: "700",
-    marginTop: -3,
+    fontSize: 36,
+    lineHeight: 37,
+    fontWeight: "800",
+    marginTop: -4,
   },
   parentNote: {
     color: "#61728C",
