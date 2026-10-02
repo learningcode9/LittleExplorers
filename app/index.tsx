@@ -1,130 +1,164 @@
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-
-const COLORS = {
-  navy: "#172D50",
-  pink: "#FFD7EA",
-  yellow: "#FFE89A",
-  blue: "#CDEBFF",
-  mint: "#D9F5E8",
-  lavender: "#E5D9FF",
-  background: "#FFF9FE",
-};
+import { FloatingIslandScene } from "../components/FloatingIslandScene";
+import { COLORS, RADIUS } from "../theme";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.cloudOne} />
-      <View style={styles.cloudTwo} />
+    <View style={styles.screen}>
+      <View style={styles.cloudLeft} />
+      <View style={styles.cloudRight} />
+      <View style={styles.content}>
+        <Text style={styles.eyebrow}>A LITTLE WORLD TO DISCOVER</Text>
+        <Text style={styles.title}>Let’s go exploring!</Text>
+        <Text style={styles.subtitle}>
+          Discover, create, and learn through playful adventures.
+        </Text>
 
-      <Text style={styles.eyebrow}>LITTLE EXPLORERS</Text>
-      <Text style={styles.title}>Ready for a little adventure?</Text>
-      <Text style={styles.subtitle}>
-        Explore playful worlds, discover new things, and learn through play.
-      </Text>
+        <View style={styles.sceneCard}>
+          <FloatingIslandScene height={330} />
+          <View style={styles.sceneLabel}>
+            <Text style={styles.sceneLabelTitle}>Your adventure starts here</Text>
+            <Text style={styles.sceneLabelText}>Pick a world and see what you can discover.</Text>
+          </View>
+        </View>
 
-      <View style={styles.island}>
-        <View style={[styles.bubble, styles.bubblePink]} />
-        <View style={[styles.bubble, styles.bubbleBlue]} />
-        <View style={[styles.bubble, styles.bubbleMint]} />
-        <Text style={styles.islandEmoji}>🌈</Text>
-        <Text style={styles.islandLabel}>Your adventure starts here</Text>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Start exploring"
+          onPress={() => router.push("/map")}
+          style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+        >
+          <Text style={styles.primaryButtonText}>Start Exploring</Text>
+          <Text style={styles.arrow}>→</Text>
+        </Pressable>
+
+        <Text style={styles.parentNote}>Grown-ups can explore settings later.</Text>
       </View>
-
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Start exploring"
-        style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
-        onPress={() => router.push("/map")}
-      >
-        <Text style={styles.primaryButtonText}>Start Exploring</Text>
-      </Pressable>
-
-      <Text style={styles.parentNote}>Grown-ups can explore settings later.</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    backgroundColor: COLORS.background,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 28,
+    backgroundColor: COLORS.cream,
     overflow: "hidden",
   },
-  cloudOne: {
-    position: "absolute",
-    width: 180,
-    height: 72,
-    borderRadius: 40,
-    backgroundColor: COLORS.blue,
-    top: 55,
-    left: -55,
-    opacity: 0.8,
+  content: {
+    width: "100%",
+    maxWidth: 760,
+    alignSelf: "center",
+    paddingHorizontal: 24,
+    paddingTop: 46,
+    paddingBottom: 30,
+    alignItems: "center",
   },
-  cloudTwo: {
+  cloudLeft: {
     position: "absolute",
-    width: 210,
-    height: 82,
-    borderRadius: 45,
+    width: 190,
+    height: 76,
+    borderRadius: 60,
+    backgroundColor: COLORS.sky,
+    left: -90,
+    top: 70,
+    opacity: 0.9,
+  },
+  cloudRight: {
+    position: "absolute",
+    width: 230,
+    height: 88,
+    borderRadius: 60,
     backgroundColor: COLORS.lavender,
-    top: 100,
-    right: -75,
-    opacity: 0.7,
+    right: -120,
+    top: 125,
+    opacity: 0.6,
   },
   eyebrow: {
     color: COLORS.navy,
-    fontSize: 13,
-    fontWeight: "800",
-    letterSpacing: 2.5,
-    marginBottom: 12,
+    fontSize: 12,
+    fontWeight: "900",
+    letterSpacing: 2.2,
+    textAlign: "center",
   },
   title: {
     color: COLORS.navy,
-    fontSize: 34,
-    lineHeight: 40,
+    fontSize: 40,
+    lineHeight: 46,
     fontWeight: "900",
     textAlign: "center",
-    maxWidth: 520,
+    marginTop: 8,
   },
   subtitle: {
-    color: "#52627A",
+    color: COLORS.navySoft,
     fontSize: 17,
-    lineHeight: 24,
+    lineHeight: 25,
     textAlign: "center",
-    marginTop: 12,
-    maxWidth: 500,
-  },
-  island: {
-    width: "100%",
     maxWidth: 520,
-    height: 190,
-    marginTop: 28,
+    marginTop: 10,
+    marginBottom: 22,
+  },
+  sceneCard: {
+    width: "100%",
+    backgroundColor: COLORS.white,
     borderRadius: 36,
-    backgroundColor: COLORS.yellow,
-    alignItems: "center",
-    justifyContent: "center",
     overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "#E8E0DA",
+    shadowColor: "#172D50",
+    shadowOpacity: 0.08,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 4,
   },
-  bubble: { position: "absolute", borderRadius: 100 },
-  bubblePink: { width: 90, height: 90, left: 22, top: 20, backgroundColor: COLORS.pink },
-  bubbleBlue: { width: 110, height: 110, right: 18, bottom: -25, backgroundColor: COLORS.blue },
-  bubbleMint: { width: 70, height: 70, right: 105, top: 18, backgroundColor: COLORS.mint },
-  islandEmoji: { fontSize: 62 },
-  islandLabel: { marginTop: 8, color: COLORS.navy, fontSize: 16, fontWeight: "800" },
+  sceneLabel: {
+    paddingHorizontal: 22,
+    paddingTop: 15,
+    paddingBottom: 19,
+    backgroundColor: COLORS.white,
+  },
+  sceneLabelTitle: {
+    color: COLORS.navy,
+    fontSize: 19,
+    fontWeight: "900",
+    textAlign: "center",
+  },
+  sceneLabelText: {
+    color: COLORS.inkSoft,
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 5,
+  },
   primaryButton: {
-    marginTop: 24,
+    marginTop: 22,
     width: "100%",
     maxWidth: 520,
-    minHeight: 64,
-    borderRadius: 22,
+    minHeight: 68,
+    borderRadius: RADIUS.button,
     backgroundColor: COLORS.navy,
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
+    gap: 12,
   },
-  pressed: { transform: [{ scale: 0.98 }], opacity: 0.9 },
-  primaryButtonText: { color: "#FFFFFF", fontSize: 19, fontWeight: "800" },
-  parentNote: { marginTop: 14, color: "#7A8799", fontSize: 13 },
+  primaryButtonText: {
+    color: COLORS.white,
+    fontSize: 19,
+    fontWeight: "900",
+  },
+  arrow: {
+    color: COLORS.butter,
+    fontSize: 24,
+    fontWeight: "900",
+    marginTop: -2,
+  },
+  pressed: {
+    transform: [{ scale: 0.985 }],
+    opacity: 0.92,
+  },
+  parentNote: {
+    color: COLORS.inkSoft,
+    fontSize: 12,
+    marginTop: 12,
+  },
 });
