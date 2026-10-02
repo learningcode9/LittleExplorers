@@ -1,7 +1,9 @@
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { HomeAdventureScene } from "../components/HomeAdventureScene";
 import { WorldMiniArt } from "../components/WorldMiniArt";
+import { storage } from "../storage/storage";
 
 const worlds = [
   {
@@ -35,6 +37,29 @@ const worlds = [
 ];
 
 export default function HomeScreen() {
+  const [checkingCharacter, setCheckingCharacter] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+
+    storage.get<string>("selected-character").then((selected) => {
+      if (!active) return;
+      if (!selected) {
+        router.replace("/character-select");
+        return;
+      }
+      setCheckingCharacter(false);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (checkingCharacter) {
+    return <View style={styles.loading}><Text style={styles.loadingText}>Little Explorers</Text></View>;
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
@@ -100,6 +125,17 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    backgroundColor: "#FFF8F1",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loadingText: {
+    color: "#172D50",
+    fontSize: 28,
+    fontWeight: "900",
+  },
   page: {
     flexGrow: 1,
     backgroundColor: "#FFF8F1",
